@@ -42,6 +42,7 @@ ILL = {
     "kogchi-ntous": "Tiled niche in a shower wall",
     "kogches-rafia-saloni": "Living-room wall with drywall recesses and shelves",
     "diadromos-xenodocheiou": "Hotel corridor with a suspended ceiling, spotlights and straight walls",
+    "anakainisi-diamerismatos": "Apartment renovation: new drywall walls, insulation and wiring before the wall is closed",
     "stokarisma-armon": "Filling drywall joints with a taping knife",
     "tavani-me-tainies-stoko": "Large room with drywall ceiling and walls, first coat of filler on the joints",
     "ergotaxio-gypsosanides": "Shop space with drywall walls and ceiling before finishing",
@@ -81,11 +82,12 @@ def _home(p, B):
  <div class="sec-h"><div><p class="eyebrow">What we build</p><h2>Every kind of drywall work from one crew</h2></div><a class="more" href="{hotels}">For hotels and shops {arrow}</a></div>
  {svc}
 </div></section>
-<section class="sec sec-stone"><div class="w">
+<section class="sec sec-stone"><div class="w split">
  <div><p class="eyebrow">Why drywall</p><h2>A wall in one day, not in two weeks</h2>
   <p>A brick partition needs laying, plastering, weeks to dry and buckets of rubble. With drywall we set up a metal frame, run cables and insulation inside and screw on the boards. The next day we fill the joints and the wall is ready to paint.</p>
   <ul class="ok"><li>Light construction that does not load the slab and copes well with earthquakes</li><li>Cables, pipes and mineral wool fit inside the wall</li><li>Straight surfaces, no cracks from damp or settlement</li><li>Easy to change if you want a different layout later</li></ul>
   <p><a class="more" href="{cost}">What drives the cost {arrow}</a></p></div>
+ <div>{lining}</div>
 </div></section>
 <section class="sec sec-dark"><div class="w">
  <div class="sec-h"><div><p class="eyebrow">How we work</p><h2>From the first call to the last coat of filler</h2></div></div>
@@ -105,7 +107,7 @@ def _home(p, B):
 """.format(tel=B.PHONE_TEL, phone=B.PHONE, wa=B.WA, arrow=B.ARROW,
            form=B.lead_form("en", "Ask for a free site visit and quote", wide=True), trust=B.trust("en"),
            hero=B.ill("saloni-kryfos-fotismos", "en", eager=True, sizes="(min-width: 1000px) 46vw, 100vw"), hero_cap=ILL["saloni-kryfos-fotismos"],
-           svc=svc_grid(B, "en", SVC), boards=boards(BOARDS), map=B.fig("chartis-perioxis", "en", "ph map"),
+           svc=svc_grid(B, "en", SVC), boards=boards(BOARDS), lining=B.fig("anakainisi-diamerismatos", "en"), map=B.fig("chartis-perioxis", "en", "ph map"),
            hotels=L("hotels"), cost=L("cost"), bathroom=L("bathroom"), areas=L("areas"))
 
 

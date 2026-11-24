@@ -43,6 +43,7 @@ ILL = {
     "kogchi-ntous": "Κόγχη στον τοίχο του ντους, ντυμένη με πλακάκι",
     "kogches-rafia-saloni": "Τοίχος με εσοχές και ράφια από γυψοσανίδα σε σαλόνι",
     "diadromos-xenodocheiou": "Διάδρομος ξενοδοχείου με ψευδοροφή, σποτ και ίσιους τοίχους",
+    "anakainisi-diamerismatos": "Ανακαίνιση διαμερίσματος: νέοι τοίχοι από γυψοσανίδα, μόνωση και καλώδια πριν κλείσει ο τοίχος",
     "stokarisma-armon": "Στοκάρισμα αρμών γυψοσανίδας με σπάτουλα",
     "tavani-me-tainies-stoko": "Μεγάλος χώρος με ταβάνι και τοίχους από γυψοσανίδα, με το πρώτο χέρι στόκο στους αρμούς",
     "ergotaxio-gypsosanides": "Χώρος καταστήματος με γυψοσανίδες στους τοίχους και στο ταβάνι, πριν από το φινίρισμα",
@@ -95,11 +96,12 @@ def _home(p, B):
  <div class="sec-h"><div><p class="eyebrow">Τι φτιάχνουμε</p><h2>Όλες οι εργασίες ξηράς δόμησης από ένα συνεργείο</h2></div><a class="more" href="{hotels}">Για ξενοδοχεία και καταστήματα {arrow}</a></div>
  {svc}
 </div></section>
-<section class="sec sec-stone"><div class="w">
+<section class="sec sec-stone"><div class="w split">
  <div><p class="eyebrow">Γιατί γυψοσανίδα</p><h2>Ένας τοίχος σε μία μέρα, όχι σε δύο εβδομάδες</h2>
   <p>Ένα χώρισμα από τούβλο θέλει χτίσιμο, σοβά, εβδομάδες για να στεγνώσει και κουβάδες με μπάζα. Με γυψοσανίδα στήνουμε μεταλλικό σκελετό, περνάμε μέσα καλώδια και μόνωση και βιδώνουμε τις πλάκες. Την επόμενη μέρα στοκάρουμε και ο τοίχος είναι έτοιμος για βάψιμο.</p>
   <ul class="ok"><li>Ελαφριά κατασκευή, που δεν φορτώνει την πλάκα και συμπεριφέρεται καλά στον σεισμό</li><li>Μέσα στον τοίχο χωράνε καλώδια, σωλήνες και ορυκτοβάμβακας</li><li>Ίσιες επιφάνειες, χωρίς ρωγμές από υγρασία ή καθιζήσεις</li><li>Αλλάζει εύκολα αν αύριο θέλετε άλλη διαρρύθμιση</li></ul>
   <p><a class="more" href="{cost}">Τι καθορίζει το κόστος {arrow}</a></p></div>
+ <div>{lining}</div>
 </div></section>
 <section class="sec sec-dark"><div class="w">
  <div class="sec-h"><div><p class="eyebrow">Πώς δουλεύουμε</p><h2>Από το πρώτο τηλεφώνημα ως το τελευταίο χέρι στόκο</h2></div></div>
@@ -119,7 +121,7 @@ def _home(p, B):
 """.format(tel=B.PHONE_TEL, phone=B.PHONE, wa=B.WA, arrow=B.ARROW,
            form=B.lead_form("el", "Ζητήστε δωρεάν αυτοψία και προσφορά", wide=True), trust=B.trust("el"),
            hero=B.ill("saloni-kryfos-fotismos", "el", eager=True, sizes="(min-width: 1000px) 46vw, 100vw"), hero_cap=ILL["saloni-kryfos-fotismos"], svc=svc_grid(B, "el", SVC),
-           boards=boards(BOARDS), map=B.fig("chartis-perioxis", "el", "ph map"),
+           boards=boards(BOARDS), lining=B.fig("anakainisi-diamerismatos", "el"), map=B.fig("chartis-perioxis", "el", "ph map"),
            hotels=L("hotels"), cost=L("cost"), bathroom=L("bathroom"), areas=L("areas"))
 
 
