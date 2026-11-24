@@ -9,7 +9,7 @@ MENU = [
                   ("insulation", "Thermal & sound insulation"), ("bathroom", "Drywall in bathrooms & kitchens"),
                   ("decor", "Hidden lighting & features"), ("hotels", "Hotels & shops"), ("repairs", "Repairs")]),
     ("Before you start", [("cost", "What drives the cost"), ("areas", "Areas we cover"), ("faq", "Frequently asked questions")]),
-    ("Gypsos Loutraki", [("home", "Home"), ("contact", "Contact"), ("privacy", "Privacy")]),
+    ("Gypsos Loutraki", [("home", "Home"), ("contact", "Contact"), ("work", "Our work"), ("privacy", "Privacy")]),
 ]
 
 FORM = dict(eb="Free site visit", h="Tell us what you want to build. We come and measure it.",
@@ -36,23 +36,32 @@ ILL = {
     "chartis-perioxis": "Map: Loutraki, Corinth, Perachora, Pisia and Lake Vouliagmeni",
     "saloni-kryfos-fotismos": "Living room with a suspended ceiling, perimeter hidden lighting and a TV wall with lit shelves",
     "diadromos-kryfos-fotismos": "Hallway with a suspended ceiling and LED cove lighting on both sides",
-    "orthostates-chorismatos": "Metal partition studs in place, before the boards go on",
-    "skeletos-chorismaton-diadromos": "Partition and ceiling framing with insulation above, boards ready on the floor",
-    "ependysi-toichou-provoleas": "Wall being prepared for lining, with site floodlights",
     "kogchi-ntous": "Tiled niche in a shower wall",
     "kogches-rafia-saloni": "Living-room wall with drywall recesses and shelves",
     "diadromos-xenodocheiou": "Hotel corridor with a suspended ceiling, spotlights and straight walls",
-    "anakainisi-diamerismatos": "Apartment renovation: new drywall walls, insulation and wiring before the wall is closed",
+    "erga-orofi-toxota": "Drywall ceiling and wall linings in a room with arched windows",
+    "erga-megali-orofi": "Large drywall ceiling in a house, before filling",
+    "erga-orofi-skala": "Drywall ceiling with a round opening for the spiral staircase",
+    "erga-skeletos-eisodou": "Metal frame for an entrance canopy",
+    "erga-ependysi-toichou": "Wall lined with drywall, screwed off and ready for filling",
+    "erga-chorisma-grafeio": "Office partition being boarded",
+    "erga-skeletos-grafeio": "Metal stud frame for an office partition",
+    "erga-orthostates": "Studs for a new partition, before the boards go on",
+    "erga-kogchi-anthygri": "Moisture-resistant board with a recessed shelf",
+    "erga-skeletos-psevdorofis": "Suspended ceiling frame in a large space",
+    "erga-skeletoi-wc": "Partition frames and wall-hung toilet frames for washrooms",
+    "erga-toichos-kalodia": "Wall closed with drywall, cables left out for sockets",
+    "erga-petrovamvakas": "Frame filled with mineral wool before the wall is closed",
+    "erga-skeletos-kalodia": "Wall frame with the cables run through",
+    "erga-psevdorofi-led": "Ceiling with channels for linear LED lighting, joints filled",
+    "erga-anthygri-mpanio": "Green moisture-resistant board walls in washrooms",
     "stokarisma-armon": "Filling drywall joints with a taping knife",
-    "tavani-me-tainies-stoko": "Large room with drywall ceiling and walls, first coat of filler on the joints",
-    "ergotaxio-gypsosanides": "Shop space with drywall walls and ceiling before finishing",
-    "orofi-gypsosanida-ktirio": "Drywall ceiling and walls in a commercial space, with plumbing outlets ready",
 }
 
 SVC = [("ceilings", "diadromos-kryfos-fotismos", "Suspended ceilings", "A level ceiling, spotlights, hidden lighting and room for cables and air-conditioning ducts."),
-       ("partitions", "orthostates-chorismatos", "Partitions & new rooms", "One room becomes two in two days, with no bricks, rubble or damp."),
-       ("linings", "tavani-me-tainies-stoko", "Wall linings", "Crooked or cracked walls become straight and ready to paint."),
-       ("insulation", "skeletos-chorismaton-diadromos", "Thermal & sound insulation", "Less noise from next door and lower electricity bills."),
+       ("partitions", "erga-skeletos-grafeio", "Partitions & new rooms", "One room becomes two in two days, with no bricks, rubble or damp."),
+       ("linings", "erga-ependysi-toichou", "Wall linings", "Crooked or cracked walls become straight and ready to paint."),
+       ("insulation", "erga-petrovamvakas", "Thermal & sound insulation", "Less noise from next door and lower electricity bills."),
        ("bathroom", "kogchi-ntous", "Bathrooms & kitchens", "Moisture-resistant board behind tiles, shower niches, boxing-in for pipes."),
        ("decor", "kogches-rafia-saloni", "Hidden lighting & features", "TV walls, shelves, niches, arches and LED lighting.")]
 
@@ -86,7 +95,7 @@ def _home(p, B):
  <div><p class="eyebrow">Why drywall</p><h2>A wall in one day, not in two weeks</h2>
   <p>A brick partition needs laying, plastering, weeks to dry and buckets of rubble. With drywall we set up a metal frame, run cables and insulation inside and screw on the boards. The next day we fill the joints and the wall is ready to paint.</p>
   <ul class="ok"><li>Light construction that does not load the slab and copes well with earthquakes</li><li>Cables, pipes and mineral wool fit inside the wall</li><li>Straight surfaces, no cracks from damp or settlement</li><li>Easy to change if you want a different layout later</li></ul>
-  <p><a class="more" href="{cost}">What drives the cost {arrow}</a></p></div>
+  <p><a class="more" href="{cost}">What drives the cost {arrow}</a><br><a class="more" href="{work}">See photos of our work {arrow}</a></p></div>
  <div>{lining}</div>
 </div></section>
 <section class="sec sec-dark"><div class="w">
@@ -107,8 +116,8 @@ def _home(p, B):
 """.format(tel=B.PHONE_TEL, phone=B.PHONE, wa=B.WA, arrow=B.ARROW,
            form=B.lead_form("en", "Ask for a free site visit and quote", wide=True), trust=B.trust("en"),
            hero=B.ill("saloni-kryfos-fotismos", "en", eager=True, sizes="(min-width: 1000px) 46vw, 100vw"), hero_cap=ILL["saloni-kryfos-fotismos"],
-           svc=svc_grid(B, "en", SVC), boards=boards(BOARDS), lining=B.fig("anakainisi-diamerismatos", "en"), map=B.fig("chartis-perioxis", "en", "ph map"),
-           hotels=L("hotels"), cost=L("cost"), bathroom=L("bathroom"), areas=L("areas"))
+           svc=svc_grid(B, "en", SVC), boards=boards(BOARDS), lining=B.fig("erga-toichos-kalodia", "en"), map=B.fig("chartis-perioxis", "en", "ph map"),
+           hotels=L("hotels"), cost=L("cost"), work=L("work"), bathroom=L("bathroom"), areas=L("areas"))
 
 
 HOME_FAQ = [
@@ -146,7 +155,7 @@ PAGES = {
         rel=["decor", "insulation", "cost"]),
 
     "partitions": dict(
-        slug="drywall-partitions-loutraki", ill="orthostates-chorismatos", service=True, stype="Drywall partition",
+        slug="drywall-partitions-loutraki", ill="erga-skeletos-grafeio", service=True, stype="Drywall partition",
         title="Drywall partitions in Loutraki · a new room in 2 days",
         desc="Drywall partitions in Loutraki: a new bedroom, office or walk-in wardrobe with sound insulation, a door and electrics. Free site visit, written quote.",
         h1="Drywall partitions in Loutraki", short="Partitions", kicker="New rooms",
@@ -166,7 +175,7 @@ PAGES = {
         rel=["insulation", "linings", "cost"]),
 
     "linings": dict(
-        slug="drywall-wall-lining", ill="ependysi-toichou-provoleas", service=True, stype="Drywall wall lining",
+        slug="drywall-wall-lining", ill="erga-ependysi-toichou", service=True, stype="Drywall wall lining",
         title="Drywall wall lining in Loutraki · straight walls, ready to paint",
         desc="Drywall wall lining in Loutraki: crooked, cracked or old walls become straight and ready to paint, with or without thermal insulation.",
         h1="Drywall wall lining", short="Wall linings", kicker="Walls",
@@ -185,7 +194,7 @@ PAGES = {
         rel=["insulation", "repairs", "decor"]),
 
     "insulation": dict(
-        slug="thermal-sound-insulation", ill="skeletos-chorismaton-diadromos", service=True, stype="Thermal and sound insulation with drywall",
+        slug="thermal-sound-insulation", ill="erga-petrovamvakas", service=True, stype="Thermal and sound insulation with drywall",
         title="Thermal & sound insulation with drywall in Loutraki",
         desc="Thermal and sound insulation with drywall and mineral wool in Loutraki, Corinth and Perachora: walls, ceilings, attics and hotel rooms.",
         h1="Thermal and sound insulation with drywall", short="Insulation", kicker="Heat, cold, noise",
@@ -197,7 +206,7 @@ PAGES = {
             ("Sound insulation: what really helps", "<p>Sound passes through the wall and through every gap. Good sound insulation has three parts: <b>mass</b> (double or acoustic board), <b>absorption</b> (mineral wool inside the frame) and <b>decoupling</b> (the new wall does not touch the old one, and resilient tape goes at the edges).</p><p>Egg-box foam and thin polystyrene do not insulate against sound. They absorb a little echo inside the room, but do not stop noise from next door.</p>{{ill:monosi}}"),
             ("Thermal insulation from inside", "<p>When external insulation is not possible, for example in an apartment block, insulating from inside is the practical answer. With 5–8 cm of stone wool and drywall, the wall stops feeling cold to the touch and the air conditioner works less.</p><p>On ceilings under a tiled roof or in attics, insulation above the suspended ceiling makes the biggest difference in summer.</p>"),
             ("Damp and vapour barriers", "<p>With insulation on the inside, warm indoor air must not reach the cold wall, or it condenses. Where needed we add a vapour-barrier membrane or boards with a built-in barrier. In Loutraki, with the humidity from the sea, this matters.</p>"),
-            ("Sound insulation in hotels and holiday lets", "<p>Guest reviews often mention noise from the next room. A sound-insulating lining on the party wall takes a few days per room, out of season. See the {{k:hotels|hotels}} page.</p>{{ill:ergotaxio-gypsosanides}}"),
+            ("Sound insulation in hotels and holiday lets", "<p>Guest reviews often mention noise from the next room. A sound-insulating lining on the party wall takes a few days per room, out of season. See the {{k:hotels|hotels}} page.</p>{{ill:erga-orofi-toxota}}"),
         ],
         faq=[("How much noise will it cut?", "It depends on the existing wall and on the gaps. A proper independent lining with double board and mineral wool makes normal conversation next door inaudible. We do not promise total silence from bass-heavy music."),
              ("Stone wool or glass wool?", "Both insulate well. Stone wool is denser, insulates sound better and resists fire longer. Glass wool is lighter and cheaper."),
@@ -255,7 +264,7 @@ PAGES = {
             ("Hotels and rental rooms", "<p>The most common jobs are new ceilings in rooms and corridors, sound insulation on party walls, boxing for new pipework and linings in bathrooms before new tiles. We work from November to March, and in operating hotels if needed, keeping noise down during quiet hours.</p>{{ill:xenodocheia}}"),
             ("Shops, restaurants and offices", "<p>In a shop on the seafront or in the main market, time is money. Dry construction lets the layout change in a few days: new fitting rooms, counters, a lit ceiling, partitions for a storeroom or office.</p>"),
             ("Fire protection", "<p>Stairwells, escape corridors and plant rooms often require a fire rating such as EI 60 or EI 90. We achieve it with type F fire-resistant boards and a system tested by the manufacturer, built exactly as described in the system sheet.</p>{{note|Fire protection is specified by an engineer's study. We build the system the study calls for and keep photos of every stage for the file.}}"),
-            ("Scheduling and invoicing", "<p>For commercial spaces we give a price per square metre or per room, a schedule, and an invoice. We coordinate with your engineer, electrician and HVAC technician so each trade knows when it comes in.</p>{{ill:orofi-gypsosanida-ktirio}}"),
+            ("Scheduling and invoicing", "<p>For commercial spaces we give a price per square metre or per room, a schedule, and an invoice. We coordinate with your engineer, electrician and HVAC technician so each trade knows when it comes in.</p>{{ill:erga-megali-orofi}}"),
         ],
         faq=[("Do you work while the hotel is open?", "Yes, in sections that close temporarily, and we schedule noisy work at times that do not disturb guests."),
              ("Do you issue invoices?", "Yes, for all work."),
@@ -273,7 +282,7 @@ PAGES = {
         answer="Small repairs usually take two visits: on day one we cut out, fit a new piece and apply the first filler, and on day two we finish. If the damage is from water, we first make sure the leak has stopped.",
         secs=[
             ("Holes and breakage", "<p>We cut the damaged part into a clean rectangle, add a backing support, screw in a new piece of the same thickness and apply tape and filler. After sanding and painting, the repair cannot be seen.</p>{{ill:episkeves}}"),
-            ("Cracked joints", "<p>If joints keep opening, tape is usually missing or the frame moves. We open the joint, check the screws and hangers, and redo it with fibreglass or paper tape.</p>{{ill:tavani-me-tainies-stoko}}"),
+            ("Cracked joints", "<p>If joints keep opening, tape is usually missing or the frame moves. We open the joint, check the screws and hangers, and redo it with fibreglass or paper tape.</p>{{ill:erga-psevdorofi-led}}"),
             ("Water damage", "<p>Drywall that got wet swells and softens. It does not dry back properly, so we replace it. We also check the insulation behind, which often needs replacing too. If needed, we coordinate with your plumber.</p>"),
         ],
         faq=[("Do you come for small jobs?", "Yes. We often group them with other work in the same area so we can come sooner."),
@@ -298,7 +307,7 @@ PAGES = {
         rel=["ceilings", "partitions", "contact"]),
 
     "cost": dict(
-        slug="drywall-cost", ill="tavani-me-tainies-stoko",
+        slug="drywall-cost", ill="erga-psevdorofi-led",
         title="Drywall cost: what raises and what lowers the price",
         desc="What drives the cost of drywall ceilings, partitions and linings: board type, insulation, height, design, finish level. Written quote after measuring.",
         h1="What drives the cost of drywall", short="Cost", kicker="Prices",
@@ -324,7 +333,7 @@ PAGES = {
         rel=["ceilings", "partitions", "insulation"]),
 
     "faq": dict(
-        slug="faq", ill="ergotaxio-gypsosanides",
+        slug="faq", ill="erga-orofi-toxota",
         title="Drywall FAQ · Gypsos Loutraki",
         desc="Answers about drywall: strength, damp, earthquakes, sound insulation, timing, permits and what to do before the crew arrives.",
         h1="Frequently asked questions about drywall", short="FAQ", kicker="Questions",
@@ -354,8 +363,22 @@ PAGES = {
         ],
         rel=["cost", "areas", "faq"]),
 
+    "work": dict(
+        slug="our-work", ill="erga-psevdorofi-led",
+        title="Our work · Gypsos Loutraki drywall",
+        desc="Photos from our own drywall jobs: ceilings, partitions, wall linings, insulation and moisture-resistant board in homes, offices and commercial spaces.",
+        h1="Our work", short="Our work", kicker="From the site",
+        card="Photos from our crew's jobs.",
+        lead="Photos from our jobs, taken while the work was under way: frames, insulation, boards and ceilings before painting.",
+        ticks=['Homes, offices and commercial spaces', 'From the frame to the filling', 'Send us photos of your own space'],
+        answer="These are our crew's jobs at different stages. For your own space, send us photos on WhatsApp or Viber.",
+        secs=[
+            ("Photos from our jobs", '<div class="gal">{{ill:erga-orofi-toxota}}{{ill:erga-megali-orofi}}{{ill:erga-orofi-skala}}{{ill:erga-skeletos-eisodou}}{{ill:erga-ependysi-toichou}}{{ill:erga-chorisma-grafeio}}{{ill:erga-skeletos-grafeio}}{{ill:erga-orthostates}}{{ill:erga-kogchi-anthygri}}{{ill:erga-skeletos-psevdorofis}}{{ill:erga-skeletoi-wc}}{{ill:erga-toichos-kalodia}}{{ill:erga-petrovamvakas}}{{ill:erga-skeletos-kalodia}}{{ill:erga-psevdorofi-led}}{{ill:erga-anthygri-mpanio}}</div>'),
+        ],
+        rel=["ceilings", "partitions", "contact"]),
+
     "privacy": dict(
-        slug="privacy", ill="orofi-gypsosanida-ktirio", noindex=True, no_form=True,
+        slug="privacy", ill="erga-megali-orofi", noindex=True, no_form=True,
         title="Privacy policy · Gypsos Loutraki",
         desc="How we use the details you send us through the form, phone, WhatsApp and email. Google Ads cookies only with your consent.",
         h1="Privacy policy", short="Privacy", kicker="Privacy",
@@ -364,7 +387,7 @@ PAGES = {
             ("What we collect", "<p>When you fill in the form, we receive by email your name, phone, area, type of work and message, and the page you sent it from. If you write to us on WhatsApp, Viber or by email, we have whatever you sent there.</p>"),
             ("Why we use it", "<p>Only to reply to you, arrange a site visit and send you a quote. We do not pass it to third parties and do not send marketing messages.</p>"),
             ("Cookies", "<p>We use Google Ads to measure which ads bring calls and requests. Its cookies are set only if you press “Accept” on the cookie notice; if you press “Reject”, none are stored. Your choice is kept in your browser, and you can change it by clearing the site’s data. Fonts are loaded from Google Fonts.</p>"),
-            ("Photos", "<p id=\"photos\">The photos on this site come from Unsplash and are used under the Unsplash License. They show the kinds of work we do and are not projects by our crew. The drawings are our own.</p>"),
+            ("Photos", "<p id=\"photos\">The photos in the Our work gallery and on most service pages are from our own jobs. A few photos of finished rooms come from Unsplash and are used under the Unsplash License; they show the kinds of work we do. The drawings are our own.</p>"),
             ("Your rights", "<p>You can ask to see, correct or delete your details with a message to the phone or email at the bottom of the page.</p>"),
         ]),
 }

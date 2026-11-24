@@ -284,3 +284,8 @@ border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding
 .cb p{margin:0;flex:1 1 260px}
 .cb div{display:flex;gap:8px}
 @media (max-width:820px){.cb{bottom:76px}}
+/* our work gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:8px}
+.gal figure{margin:0}
+.gal img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:10px}
+.gal figcaption{font-size:.88rem;color:var(--muted);margin-top:6px;line-height:1.4}
