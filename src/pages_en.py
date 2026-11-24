@@ -357,13 +357,13 @@ PAGES = {
     "privacy": dict(
         slug="privacy", ill="orofi-gypsosanida-ktirio", noindex=True, no_form=True,
         title="Privacy policy · Gypsos Loutraki",
-        desc="How we use the details you send us through the form, phone, WhatsApp and email. We do not use tracking cookies.",
+        desc="How we use the details you send us through the form, phone, WhatsApp and email. Google Ads cookies only with your consent.",
         h1="Privacy policy", short="Privacy", kicker="Privacy",
         lead="Short and simple: what details we keep, why and for how long.",
         secs=[
             ("What we collect", "<p>When you fill in the form, we receive by email your name, phone, area, type of work and message, and the page you sent it from. If you write to us on WhatsApp, Viber or by email, we have whatever you sent there.</p>"),
             ("Why we use it", "<p>Only to reply to you, arrange a site visit and send you a quote. We do not pass it to third parties and do not send marketing messages.</p>"),
-            ("Cookies", "<p>This site does not use tracking or advertising cookies. Fonts are loaded from Google Fonts.</p>"),
+            ("Cookies", "<p>We use Google Ads to measure which ads bring calls and requests. Its cookies are set only if you press “Accept” on the cookie notice; if you press “Reject”, none are stored. Your choice is kept in your browser, and you can change it by clearing the site’s data. Fonts are loaded from Google Fonts.</p>"),
             ("Photos", "<p id=\"photos\">The photos on this site come from Unsplash and are used under the Unsplash License. They show the kinds of work we do and are not projects by our crew. The drawings are our own.</p>"),
             ("Your rights", "<p>You can ask to see, correct or delete your details with a message to the phone or email at the bottom of the page.</p>"),
         ]),

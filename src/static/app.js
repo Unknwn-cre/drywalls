@@ -4,6 +4,47 @@
   var WA = "306906838669";
   var EMAIL = "info@gypsos-loutraki.com";
 
+  // Google Ads: consent banner (Consent Mode v2) and conversion events.
+  // Fill CONV with the conversion labels from Google Ads (Goals → Conversions → the action → Tag setup), e.g. "AbCdEf123".
+  var CONV = { lead: "", call: "", whatsapp: "", viber: "", email: "" };
+  function track(kind) {
+    if (typeof window.gtag !== "function") return;
+    if (CONV[kind] && window.ADS_ID) window.gtag("event", "conversion", { send_to: window.ADS_ID + "/" + CONV[kind] });
+    window.gtag("event", kind === "lead" ? "generate_lead" : "contact", { method: kind });
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href], [data-via]");
+    if (!a) return;
+    var h = a.getAttribute("href") || "", via = a.dataset ? a.dataset.via : "";
+    if (h.indexOf("tel:") === 0) track("call");
+    else if (h.indexOf("wa.me") > -1 || via === "wa") track("whatsapp");
+    else if (h.indexOf("viber:") === 0 || via === "viber") track("viber");
+    else if (h.indexOf("mailto:") === 0 || via === "mail") track("email");
+  });
+  var stored = null;
+  try { stored = localStorage.getItem("consent"); } catch (e) {}
+  if (!stored) {
+    var cb = document.createElement("div");
+    cb.className = "cb";
+    cb.setAttribute("role", "region");
+    cb.setAttribute("aria-label", "Cookies");
+    cb.innerHTML = "<p>" + (en
+      ? "We use Google Ads cookies to measure which ads bring calls and requests. <a href=\"/en/privacy/\">Privacy</a>"
+      : "Χρησιμοποιούμε cookies του Google Ads για να μετράμε ποιες διαφημίσεις φέρνουν κλήσεις και αιτήματα. <a href=\"/aporrito/\">Απόρρητο</a>") +
+      "</p><div><button type=\"button\" class=\"btn btn-sm\" data-c=\"granted\">" + (en ? "Accept" : "Αποδοχή") +
+      "</button><button type=\"button\" class=\"btn btn-sm btn-ghost\" data-c=\"denied\">" + (en ? "Reject" : "Απόρριψη") + "</button></div>";
+    cb.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-c]");
+      if (!b) return;
+      var v = b.dataset.c;
+      try { localStorage.setItem("consent", v); } catch (err) {}
+      if (v === "granted" && typeof window.gtag === "function")
+        window.gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted", analytics_storage: "granted" });
+      cb.remove();
+    });
+    document.body.appendChild(cb);
+  }
+
   // menu: close on link click, outside tap or Escape
   var menu = document.querySelector(".dd");
   if (menu) {
@@ -58,7 +99,7 @@
       btn.textContent = L.sending;
       fetch("/api/lead", { method: "POST", body: d })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !j.success) throw 0; }); })
-        .then(function () { say("<p>" + L.ok + "</p>"); form.reset(); })
+        .then(function () { say("<p>" + L.ok + "</p>"); form.reset(); track("lead"); })
         .catch(function () {
           say("<p>" + L.fail + "</p><a class=\"btn btn-sm\" href=\"" + link("wa") + "\">WhatsApp</a>" +
               "<a class=\"btn btn-sm btn-ghost\" href=\"" + link("viber") + "\">Viber</a>" +
