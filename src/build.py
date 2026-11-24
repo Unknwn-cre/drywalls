@@ -43,7 +43,7 @@ def site_url():
 # ---------------- CONFIG (placeholders until the owner sends the real details) ----------------
 DOMAIN = site_url()
 TODAY = date.today().isoformat()
-VER = "1124a"
+VER = "1124b"
 PHONE, PHONE_TEL = "+30 690 683 8669", "+306906838669"     # the owner's mobile (calls, WhatsApp, Viber)
 MOBILE, WA = PHONE, "306906838669"
 EMAIL = "info@gypsos-loutraki.com"  # public address; forward it to the owner's inbox with Cloudflare Email Routing
@@ -53,6 +53,15 @@ ADDR = {"el": "Λουτράκι Κορινθίας, 203 00", "en": "Loutraki, Co
 GEO = (37.9752, 22.9775)
 CONTENT = {"el": pages_el, "en": pages_en}
 THEME = "#1e2a32"
+# Google Ads tag. Loads with Consent Mode v2: ads cookies stay off until the visitor accepts the banner (app.js).
+ADS_ID = "AW-18546085051"
+GTAG = """<script>
+window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}
+gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500}});
+try{{if(localStorage.getItem('consent')==='granted')gtag('consent','update',{{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'}});}}catch(e){{}}
+gtag('js',new Date());gtag('config','{ads}');window.ADS_ID='{ads}';
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={ads}"></script>""".format(ads=ADS_ID)
 
 UI = {
     "el": dict(skip="Μετάβαση στο περιεχόμενο", menu="Μενού", quote="Ζητήστε προσφορά", home="Αρχική", call="Τηλέφωνο",
@@ -365,13 +374,14 @@ def head(p):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Commissioner:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/style.css?v={ver}">
+{gtag}
 {lds}
 </head>
 """.format(lang=lang, title=esc(p["title"]), desc=esc(p["desc"]), url=url, alt=alt, site=NAME[lang], domain=DOMAIN,
            robots="noindex, follow" if p.get("noindex") else "index, follow, max-image-preview:large",
            geo="Λουτράκι, Κορινθία" if lang == "el" else "Loutraki, Corinthia", lat=GEO[0], lon=GEO[1],
            locale="el_GR" if lang == "el" else "en_GB", olocale="en_GB" if lang == "el" else "el_GR",
-           theme=THEME, ver=VER, lds=lds)
+           theme=THEME, ver=VER, lds=lds, gtag=GTAG)
 
 
 def sid(t):
