@@ -1,7 +1,7 @@
 // Worker "drywalls" (drywall installation, Loutraki): serves site/ as static assets, 301s other hostnames to SITE_URL when REDIRECT is "on",
 // and handles POST /api/lead from the quote form.
 // A lead goes to every channel configured with variables (Worker → Settings → Variables and Secrets), same as gutters-toronto:
-//   TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID  → Telegram message (simplest)
+//   TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID  → Telegram message (simplest; several chat ids separated by commas)
 //   RESEND_API_KEY + LEAD_EMAIL_TO (+ LEAD_EMAIL_FROM) → email via resend.com
 //   LEAD_WEBHOOK_URL                       → JSON POST (Zapier, Make, Google Sheets…)
 //   LEAD_TO                                → email through Cloudflare Email Routing (binding LEAD; destination must be verified)
@@ -74,13 +74,20 @@ async function check(res, label) {
   if (!res.ok) throw new Error(label + " " + res.status + ": " + (await res.text()).slice(0, 300));
 }
 
+// TELEGRAM_CHAT_ID may list several chats separated by commas (e.g. "123456789,987654321");
+// each person must first press Start in the bot. One delivered copy counts as success.
 async function sendTelegram(env, subject, text) {
-  const res = await fetch("https://api.telegram.org/bot" + env.TELEGRAM_BOT_TOKEN + "/sendMessage", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text: "🧱 " + subject + "\n\n" + text }),
-  });
-  await check(res, "telegram");
+  const ids = String(env.TELEGRAM_CHAT_ID).split(",").map((x) => x.trim()).filter(Boolean);
+  const results = await Promise.allSettled(ids.map(async (id) => {
+    const res = await fetch("https://api.telegram.org/bot" + env.TELEGRAM_BOT_TOKEN + "/sendMessage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: id, text: "🧱 " + subject + "\n\n" + text }),
+    });
+    await check(res, "telegram " + id);
+  }));
+  results.filter((r) => r.status === "rejected").forEach((r) => console.error("lead delivery failed:", r.reason && r.reason.message));
+  if (!results.some((r) => r.status === "fulfilled")) throw new Error("telegram: no chat received the lead");
 }
 
 async function sendResend(env, subject, text, replyTo) {
