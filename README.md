@@ -26,7 +26,7 @@ npx wrangler deploy
 `worker.js` handles `POST /api/lead` and sends each request to every channel that has variables set
 (Worker → Settings → Variables and Secrets), same as gutters-toronto:
 
-- **Telegram (simplest):** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
+- **Telegram (simplest):** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`. Several recipients: list chat ids separated by commas (`123456789,987654321`); each person must press Start in the bot first.
 - **Email via resend.com:** `RESEND_API_KEY`, `LEAD_EMAIL_TO` (comma-separated), optional `LEAD_EMAIL_FROM`.
 - **Webhook (Zapier, Make, Google Sheets):** `LEAD_WEBHOOK_URL`, gets JSON with all fields.
 - **Cloudflare Email Routing:** `LEAD_TO` (a verified destination address), sent through the `send_email` binding `LEAD`.
