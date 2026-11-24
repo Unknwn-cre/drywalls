@@ -10,6 +10,20 @@ import { EmailMessage } from "cloudflare:email";
 
 const FROM = "form@gypsos-loutraki.com";
 const MAX_FIELD = 2000;
+// The pages are built with this placeholder address. When the PUBLIC_EMAIL variable is set in the Worker
+// (Settings → Variables and Secrets), every HTML page and app.js is served with that address instead.
+const SITE_EMAIL = "info@gypsos-loutraki.com";
+
+async function withEmail(res, env) {
+  const to = (env.PUBLIC_EMAIL || "").trim();
+  const type = res.headers.get("Content-Type") || "";
+  if (!to || to === SITE_EMAIL || (res.status !== 200 && res.status !== 404) ||!/text\/html|javascript/.test(type)) return res;
+  const body = (await res.text()).split(SITE_EMAIL).join(to);
+  const headers = new Headers(res.headers);
+  headers.delete("Content-Length");
+  headers.delete("ETag");
+  return new Response(body, { status: res.status, statusText: res.statusText, headers });
+}
 
 export default {
   async fetch(request, env) {
@@ -19,7 +33,7 @@ export default {
       // one address for Google: the old workers.dev address and www. are moved permanently to SITE_URL
       return Response.redirect(site.origin + url.pathname + url.search, 301);
     }
-    if (url.pathname !== "/api/lead") return env.ASSETS.fetch(request);
+    if (url.pathname !== "/api/lead") return withEmail(await env.ASSETS.fetch(request), env);
     if (request.method !== "POST") return json({ success: false, message: "POST only" }, 405);
     const origin = request.headers.get("Origin");
     if (origin && new URL(origin).hostname !== url.hostname) return json({ success: false, message: "bad origin" }, 403);
