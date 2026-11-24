@@ -120,7 +120,6 @@ def lining():
     b += rect(318, 30, 12, 440, STUD, INK, 1.5)
     b += rect(380, 190, 70, 44, "#fff", EDGE, 2) + '<circle cx="415" cy="212" r="7" fill="none" stroke="%s" stroke-width="2"/>' % INK  # socket
     b += person(260, 470)
-    svg("ependysi", b)
 
 
 def insulation():

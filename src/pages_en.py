@@ -28,7 +28,6 @@ ILL = {
     "hero-saloni": "Living room in progress: metal frame with mineral wool on the left, drywall and a lit niche on the right",
     "psevdorofi": "Suspended drywall ceiling with spotlights and perimeter hidden lighting",
     "chorisma": "Partition with CW studs, a door frame and mineral wool before the boards go on",
-    "ependysi": "Lining an old cracked wall: drywall on a metal frame",
     "monosi": "Frame filled with mineral wool for sound and thermal insulation",
     "bano": "Bathroom with green moisture-resistant board behind the tiles and a lit niche",
     "diakosmitika": "Drywall TV wall with shelves, hidden lighting and a lit shelf",
@@ -82,12 +81,11 @@ def _home(p, B):
  <div class="sec-h"><div><p class="eyebrow">What we build</p><h2>Every kind of drywall work from one crew</h2></div><a class="more" href="{hotels}">For hotels and shops {arrow}</a></div>
  {svc}
 </div></section>
-<section class="sec sec-stone"><div class="w split">
+<section class="sec sec-stone"><div class="w">
  <div><p class="eyebrow">Why drywall</p><h2>A wall in one day, not in two weeks</h2>
   <p>A brick partition needs laying, plastering, weeks to dry and buckets of rubble. With drywall we set up a metal frame, run cables and insulation inside and screw on the boards. The next day we fill the joints and the wall is ready to paint.</p>
   <ul class="ok"><li>Light construction that does not load the slab and copes well with earthquakes</li><li>Cables, pipes and mineral wool fit inside the wall</li><li>Straight surfaces, no cracks from damp or settlement</li><li>Easy to change if you want a different layout later</li></ul>
   <p><a class="more" href="{cost}">What drives the cost {arrow}</a></p></div>
- <div>{lining}</div>
 </div></section>
 <section class="sec sec-dark"><div class="w">
  <div class="sec-h"><div><p class="eyebrow">How we work</p><h2>From the first call to the last coat of filler</h2></div></div>
@@ -107,7 +105,7 @@ def _home(p, B):
 """.format(tel=B.PHONE_TEL, phone=B.PHONE, wa=B.WA, arrow=B.ARROW,
            form=B.lead_form("en", "Ask for a free site visit and quote", wide=True), trust=B.trust("en"),
            hero=B.ill("saloni-kryfos-fotismos", "en", eager=True, sizes="(min-width: 1000px) 46vw, 100vw"), hero_cap=ILL["saloni-kryfos-fotismos"],
-           svc=svc_grid(B, "en", SVC), lining=B.fig("ependysi", "en"), boards=boards(BOARDS), map=B.fig("chartis-perioxis", "en", "ph map"),
+           svc=svc_grid(B, "en", SVC), boards=boards(BOARDS), map=B.fig("chartis-perioxis", "en", "ph map"),
            hotels=L("hotels"), cost=L("cost"), bathroom=L("bathroom"), areas=L("areas"))
 
 
@@ -175,7 +173,7 @@ PAGES = {
         ticks=["On a frame or bonded, depending on the wall", "With thermal insulation on outside walls", "Cables and sockets run inside"],
         answer="If the wall is dry and fairly straight, we bond the board directly with plaster adhesive and you lose only 2 cm. If it is crooked or you want insulation, we build a frame and you lose 5–8 cm.",
         secs=[
-            ("Bonded lining or on a frame", "<p><b>Bonded lining</b> uses dabs of plaster adhesive, directly on the plaster or brick. It is quick and cheap, but needs a dry wall without large hollows.</p><p><b>Framed lining</b> is built on CD or CW profiles a little in front of the wall. It corrects any unevenness, leaves room for cables and insulation, and is not affected by the old plaster.</p>{{ill:ependysi}}"),
+            ("Bonded lining or on a frame", "<p><b>Bonded lining</b> uses dabs of plaster adhesive, directly on the plaster or brick. It is quick and cheap, but needs a dry wall without large hollows.</p><p><b>Framed lining</b> is built on CD or CW profiles a little in front of the wall. It corrects any unevenness, leaves room for cables and insulation, and is not affected by the old plaster.</p>"),
             ("Thermal insulation from inside", "<p>On outside walls, especially north-facing ones, lining is a chance to add insulation. We fill the frame with stone wool or bond ready-made insulated plasterboard with expanded polystyrene. More on the {{k:insulation|insulation}} page.</p>"),
             ("When lining is not the answer", "<p>If the wall has active damp from rising water or a leak, lining will hide the problem and go mouldy behind. In that case the cause is fixed first and the drywall goes on afterwards.</p>{{note|In ground floors near the sea we often see damp at the bottom of walls. We measure it with a moisture meter at the site visit before suggesting a solution.}}"),
         ],
