@@ -2,7 +2,7 @@
 (function () {
   var en = document.documentElement.lang === "en";
   var WA = "306906838669";
-  var EMAIL = "info@handyman24.com";
+  var EMAIL = "info@gypsos-loutraki.com";
 
   // menu: close on link click, outside tap or Escape
   var menu = document.querySelector(".dd");

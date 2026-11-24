@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://handyman24.com/sitemap.xml
+Sitemap: https://gypsos-loutraki.com/sitemap.xml

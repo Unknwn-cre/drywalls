@@ -1,4 +1,4 @@
-# Gypsos Loutraki — handyman24.com
+# Gypsos Loutraki — gypsos-loutraki.com
 
 Live (Worker "drywalls"): https://drywalls.unknwn-creation.workers.dev
 
@@ -25,12 +25,12 @@ npx wrangler deploy
 
 `worker.js` handles `POST /api/lead` and emails the form through the `send_email` binding `LEAD`
 (Email Routing must be enabled for the domain and the destination address verified).
-Set `REDIRECT` to `"on"` in `wrangler.jsonc` once handyman24.com is attached, so www/workers.dev redirect to the main host.
+Set `REDIRECT` to `"on"` in `wrangler.jsonc` once gypsos-loutraki.com is attached, so www/workers.dev redirect to the main host.
 
 ## To confirm before launch
 
-- Leads: in Cloudflare, enable Email Routing on handyman24.com, verify the owner's inbox as a destination,
-  forward info@handyman24.com to it, and set the Worker variable `LEAD_TO` to that inbox. The address is kept out of the code.
+- Leads: in Cloudflare, enable Email Routing on gypsos-loutraki.com, verify the owner's inbox as a destination,
+  forward info@gypsos-loutraki.com to it, and set the Worker variable `LEAD_TO` to that inbox. The address is kept out of the code.
 - Street address and the company's legal name.
 - Replace stock photos with the crew's own work when available.
 
