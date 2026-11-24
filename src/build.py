@@ -43,7 +43,7 @@ def site_url():
 # ---------------- CONFIG (placeholders until the owner sends the real details) ----------------
 DOMAIN = site_url()
 TODAY = date.today().isoformat()
-VER = "1124c"
+VER = "1124d"
 PHONE, PHONE_TEL = "+30 690 683 8669", "+306906838669"     # the owner's mobile (calls, WhatsApp, Viber)
 MOBILE = PHONE
 WA = "14165705760"  # WhatsApp for now goes to +1 416 570 5760 (user, 2026-11-24); calls and Viber stay on PHONE
