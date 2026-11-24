@@ -4,10 +4,10 @@
 // The sender address must be on the domain, and the destination must be verified in Email Routing.
 import { EmailMessage } from "cloudflare:email";
 
-const FROM = "form@handyman24.com";
+const FROM = "form@gypsos-loutraki.com";
 // The inbox for leads comes from the LEAD_TO variable (set in the Cloudflare dashboard, kept out of the code);
 // it must be a verified destination in Email Routing.
-const TO_DEFAULT = "info@handyman24.com";
+const TO_DEFAULT = "info@gypsos-loutraki.com";
 const MAX_FIELD = 2000;
 
 export default {
@@ -44,7 +44,7 @@ export default {
       replyTo && "Reply-To: <" + replyTo + ">",
       "Subject: =?UTF-8?B?" + b64(subject) + "?=",
       "Date: " + new Date().toUTCString(),
-      "Message-ID: <" + crypto.randomUUID() + "@handyman24.com>",
+      "Message-ID: <" + crypto.randomUUID() + "@gypsos-loutraki.com>",
       "MIME-Version: 1.0",
       "Content-Type: text/plain; charset=UTF-8",
       "Content-Transfer-Encoding: base64",
