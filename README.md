@@ -54,3 +54,14 @@ The site says so on the privacy page. File -> Unsplash photo ID (`https://unspla
 | kogchi-ntous | 1780544241838-7b54189f01b0 |
 | diadromos-xenodocheiou | 1631049780150-c197bf723954 |
 | stokarisma-armon | 1768839725085-829e6ac7ac26 |
+
+## Offers app (`/prosfores/`)
+
+Commercial offers (Οικονομική προσφορά) for drywall jobs, ported from the pool offers app (quant-develope/Pisines-commerce).
+Open gypsos-loutraki.com/prosfores/ on the phone, set a PIN once, then enter prices in «Работы / Εργασίες».
+
+- `src/prosfores/` — the app (RU/ΕΛ interface, PDF in Greek or English made in the browser with pdfmake); `src/build.py` copies it to `site/prosfores/`.
+- `offers/store.js` — Durable Object `Store` with the `/prosfores/api/*` routes (PIN, catalogue, prices, settings, saved offers, photos); `worker.js` routes to it.
+- `offers/seed.js` — starting catalogue of works, templates and company details, written once when the PIN is set (no prices).
+- Room size (length, width, height) fills quantities with units `area` (ceiling), `perim` (perimeter) and `wall` (wall area).
+- Not indexed: `X-Robots-Tag: noindex` and `Disallow: /prosfores/` in robots.txt.

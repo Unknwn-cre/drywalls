@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /prosfores/
 
 Sitemap: https://gypsos-loutraki.com/sitemap.xml

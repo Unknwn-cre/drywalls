@@ -43,7 +43,7 @@ def site_url():
 # ---------------- CONFIG (placeholders until the owner sends the real details) ----------------
 DOMAIN = site_url()
 TODAY = date.today().isoformat()
-VER = "1124m"
+VER = "1124n"
 PHONE, PHONE_TEL = "+30 690 683 8669", "+306906838669"     # the owner's mobile (calls, WhatsApp, Viber)
 MOBILE, WA = PHONE, "306906838669"
 EMAIL = "info@gypsos-loutraki.com"  # public address; forward it to the owner's inbox with Cloudflare Email Routing
@@ -498,6 +498,8 @@ def main():
     build_images()
     load_ill()
     shutil.copytree(os.path.join(HERE, "ill"), os.path.join(OUT, "ill"))
+    # the owner's offers app (PIN-protected, not indexed): static files only, data API in worker.js
+    shutil.copytree(os.path.join(HERE, "prosfores"), os.path.join(OUT, "prosfores"))
     for f in os.listdir(os.path.join(HERE, "static")):
         shutil.copy(os.path.join(HERE, "static", f), os.path.join(OUT, "assets" if f.endswith((".css", ".js")) else "", f))
     for lang in ("el", "en"):
@@ -532,7 +534,7 @@ def main():
         nf = dict(CONTENT[lang].NOT_FOUND, key="home", lang=lang, path="/404.html" if lang == "el" else "/en/404.html", noindex=True)
         write(nf["path"], render(nf))
     sitemaps(pages)
-    write("/robots.txt", "User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % DOMAIN)
+    write("/robots.txt", "User-agent: *\nAllow: /\nDisallow: /prosfores/\n\nSitemap: %s/sitemap.xml\n" % DOMAIN)
     write("/_headers", "/img/*\n  Cache-Control: public, max-age=2592000\n/ill/*\n  Cache-Control: public, max-age=2592000\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n"
           "/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n")
     write("/site.webmanifest", json.dumps({"name": NAME["el"], "short_name": "Γυψοσανίδες", "start_url": "/", "display": "browser",

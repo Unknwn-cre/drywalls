@@ -14,6 +14,11 @@
     "html_handling": "auto-trailing-slash",
     "run_worker_first": true
   },
+  // Offers app (/prosfores/): all its data lives in one SQLite-backed Durable Object (offers/store.js).
+  "durable_objects": {
+    "bindings": [{ "name": "STORE", "class_name": "Store" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Store"] }],
   // Quote form leads (worker.js). Needs Cloudflare Email Routing on gypsos-loutraki.com.
   // Set LEAD_TO (the owner's inbox) as a variable in the Cloudflare dashboard and verify it as a destination in Email Routing.
   "send_email": [
