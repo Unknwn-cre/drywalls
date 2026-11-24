@@ -40,7 +40,7 @@ padding:15px 22px 13px;border:0;border-bottom:3px solid var(--ochre-d);border-ra
 .hd{background:rgba(246,244,239,.94);backdrop-filter:blur(8px);position:sticky;top:0;z-index:40;border-bottom:1px solid var(--line)}
 .hd-in{display:flex;align-items:center;gap:22px;min-height:72px}
 .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);flex-shrink:0}
-.logo{width:52px;height:52px}
+.logo{width:44px;height:44px}
 .brand-t{display:flex;flex-direction:column;line-height:1.1}
 .brand-t b{font:800 1.12rem/1.1 Commissioner,sans-serif}
 .brand-t small{color:var(--muted);font-size:.78rem}
