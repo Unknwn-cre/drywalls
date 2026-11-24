@@ -48,16 +48,9 @@ The site says so on the privacy page. File -> Unsplash photo ID (`https://unspla
 
 | File | Unsplash ID |
 |---|---|
-| tavani-me-tainies-stoko | 1733431772808-82d878e59000 |
-| skeletos-chorismaton-diadromos | 1768321914149-5a6428ec2f82 |
-| orthostates-chorismatos | 1768321916886-30dc323bddf7 |
 | saloni-kryfos-fotismos | 1662454420647-3d20ddcdb8f8 |
-| anakainisi-diamerismatos | 1768321902290-54497eeb9cf6 |
 | diadromos-kryfos-fotismos | 1643913592529-9989c485507a |
 | kogches-rafia-saloni | 1697457643599-77b5d074121f |
 | kogchi-ntous | 1780544241838-7b54189f01b0 |
 | diadromos-xenodocheiou | 1631049780150-c197bf723954 |
 | stokarisma-armon | 1768839725085-829e6ac7ac26 |
-| ependysi-toichou-provoleas | 1751486403890-793880b12adb |
-| ergotaxio-gypsosanides | 1733431774078-692252a6605e |
-| orofi-gypsosanida-ktirio | 1718816281207-3b253cff549a |
