@@ -43,7 +43,7 @@ def site_url():
 # ---------------- CONFIG (placeholders until the owner sends the real details) ----------------
 DOMAIN = site_url()
 TODAY = date.today().isoformat()
-VER = "1124g"
+VER = "1124h"
 PHONE, PHONE_TEL = "+30 690 683 8669", "+306906838669"     # the owner's mobile (calls, WhatsApp, Viber)
 MOBILE, WA = PHONE, "306906838669"
 EMAIL = "info@gypsos-loutraki.com"  # public address; forward it to the owner's inbox with Cloudflare Email Routing
