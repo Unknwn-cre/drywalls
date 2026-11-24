@@ -1,5 +1,7 @@
 # Gypsos Loutraki — handyman24.com
 
+Live (Worker "drywalls"): https://drywalls.unknwn-creation.workers.dev
+
 Static two-language site (Greek at `/`, English at `/en/`) for drywall installation in Loutraki and Corinthia.
 Built with the same pattern as the other sites: a Python generator writes plain HTML to `site/`, served by a Cloudflare Worker with static assets.
 
