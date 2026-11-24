@@ -1,5 +1,5 @@
 // Worker "drywalls" (drywall installation, Loutraki): serves site/ as static assets, 301s other hostnames to SITE_URL when REDIRECT is "on",
-// and handles POST /api/lead from the quote form.
+// handles POST /api/lead from the quote form, and runs the owner's offers app under /prosfores/ (offers/store.js).
 // A lead goes to every channel configured with variables (Worker → Settings → Variables and Secrets), same as gutters-toronto:
 //   TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID  → Telegram message (simplest; several chat ids separated by commas)
 //   RESEND_API_KEY + LEAD_EMAIL_TO (+ LEAD_EMAIL_FROM) → email via resend.com
@@ -7,6 +7,10 @@
 //   LEAD_TO                                → email through Cloudflare Email Routing (binding LEAD; destination must be verified)
 // With no channel configured the form answers "failed", and the page offers WhatsApp/Viber/email with the same text.
 import { EmailMessage } from "cloudflare:email";
+import { Store, BASE as OFFERS } from "./offers/store.js";
+
+// Durable Object of the offers app (gypsos-loutraki.com/prosfores/): PIN, works catalogue, prices, saved offers.
+export { Store };
 
 const FROM = "form@gypsos-loutraki.com";
 const MAX_FIELD = 2000;
@@ -33,6 +37,7 @@ export default {
       // one address for Google: the old workers.dev address and www. are moved permanently to SITE_URL
       return Response.redirect(site.origin + url.pathname + url.search, 301);
     }
+    if (url.pathname === OFFERS || url.pathname.startsWith(OFFERS + "/")) return offers(request, env, url);
     if (url.pathname !== "/api/lead") return withEmail(await env.ASSETS.fetch(request), env);
     if (request.method !== "POST") return json({ success: false, message: "POST only" }, 405);
     const origin = request.headers.get("Origin");
@@ -69,6 +74,16 @@ export default {
     return json({ success: true });
   },
 };
+
+// Offers app: its API goes to the one Durable Object, its files come from site/prosfores/; nothing there is indexed.
+async function offers(request, env, url) {
+  const res = url.pathname.startsWith(OFFERS + "/api/")
+    ? await env.STORE.get(env.STORE.idFromName("main")).fetch(request)
+    : await env.ASSETS.fetch(request);
+  const out = new Response(res.body, res);
+  out.headers.set("X-Robots-Tag", "noindex, nofollow");
+  return out;
+}
 
 async function check(res, label) {
   if (!res.ok) throw new Error(label + " " + res.status + ": " + (await res.text()).slice(0, 300));
