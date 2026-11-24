@@ -4,6 +4,8 @@
   "compatibility_date": "2025-10-01",
   // SITE_URL = the site address used in canonicals, hreflang, sitemap, robots and schema (src/build.py reads it).
   // REDIRECT "on" sends any other hostname (workers.dev, www) to SITE_URL with a 301. Keep it "off" until the domain is attached.
+  // keep_vars: variables added in the Cloudflare dashboard (PUBLIC_EMAIL, TELEGRAM_*, LEAD_TO…) survive every deploy.
+  "keep_vars": true,
   "vars": { "SITE_URL": "https://gypsos-loutraki.com", "REDIRECT": "off" },
   "assets": {
     "directory": "./site",
