@@ -23,8 +23,15 @@ python3 src/build.py      # writes site/, checks links and image captions
 npx wrangler deploy
 ```
 
-`worker.js` handles `POST /api/lead` and emails the form through the `send_email` binding `LEAD`
-(Email Routing must be enabled for the domain and the destination address verified).
+`worker.js` handles `POST /api/lead` and sends each request to every channel that has variables set
+(Worker → Settings → Variables and Secrets), same as gutters-toronto:
+
+- **Telegram (simplest):** `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`.
+- **Email via resend.com:** `RESEND_API_KEY`, `LEAD_EMAIL_TO` (comma-separated), optional `LEAD_EMAIL_FROM`.
+- **Webhook (Zapier, Make, Google Sheets):** `LEAD_WEBHOOK_URL`, gets JSON with all fields.
+- **Cloudflare Email Routing:** `LEAD_TO` (a verified destination address), sent through the `send_email` binding `LEAD`.
+
+With no channel set the form reports a failure and offers WhatsApp/Viber/email with the same text.
 Set `REDIRECT` to `"on"` in `wrangler.jsonc` once gypsos-loutraki.com is attached, so www/workers.dev redirect to the main host.
 
 ## To confirm before launch

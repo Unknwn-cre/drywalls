@@ -1,13 +1,14 @@
 // Worker "drywalls" (drywall installation, Loutraki): serves site/ as static assets, 301s other hostnames to SITE_URL when REDIRECT is "on",
 // and handles POST /api/lead from the quote form.
-// A lead is emailed to the owner through Cloudflare Email Routing (binding LEAD in wrangler.jsonc).
-// The sender address must be on the domain, and the destination must be verified in Email Routing.
+// A lead goes to every channel configured with variables (Worker → Settings → Variables and Secrets), same as gutters-toronto:
+//   TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID  → Telegram message (simplest)
+//   RESEND_API_KEY + LEAD_EMAIL_TO (+ LEAD_EMAIL_FROM) → email via resend.com
+//   LEAD_WEBHOOK_URL                       → JSON POST (Zapier, Make, Google Sheets…)
+//   LEAD_TO                                → email through Cloudflare Email Routing (binding LEAD; destination must be verified)
+// With no channel configured the form answers "failed", and the page offers WhatsApp/Viber/email with the same text.
 import { EmailMessage } from "cloudflare:email";
 
 const FROM = "form@gypsos-loutraki.com";
-// The inbox for leads comes from the LEAD_TO variable (set in the Cloudflare dashboard, kept out of the code);
-// it must be a verified destination in Email Routing.
-const TO_DEFAULT = "info@gypsos-loutraki.com";
 const MAX_FIELD = 2000;
 
 export default {
@@ -34,32 +35,80 @@ export default {
     if (form.get("_honey")) return json({ success: true });
     if (!get("Όνομα") || !get("Τηλέφωνο")) return json({ success: false, message: "name and phone required" }, 400);
 
-    const TO = env.LEAD_TO || TO_DEFAULT;
     const subject = "Νέα αίτηση (γυψοσανίδες Λουτράκι): " + get("Όνομα") + (get("Γλώσσα") === "English" ? " (English)" : "");
     const text = fields.map(([k, v]) => k + ": " + v).join("\n") + "\n";
     const replyTo = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(get("Email")) ? get("Email") : "";
-    const headers = [
-      "From: =?UTF-8?B?" + b64("Γυψοσανίδες Λουτράκι (site)") + "?= <" + FROM + ">",
-      "To: <" + TO + ">",
-      replyTo && "Reply-To: <" + replyTo + ">",
-      "Subject: =?UTF-8?B?" + b64(subject) + "?=",
-      "Date: " + new Date().toUTCString(),
-      "Message-ID: <" + crypto.randomUUID() + "@gypsos-loutraki.com>",
-      "MIME-Version: 1.0",
-      "Content-Type: text/plain; charset=UTF-8",
-      "Content-Transfer-Encoding: base64",
-    ].filter(Boolean);
-    const raw = headers.join("\r\n") + "\r\n\r\n" + b64(text).replace(/.{76}/g, "$&\r\n");
 
-    try {
-      await env.LEAD.send(new EmailMessage(FROM, TO, raw));
-    } catch (e) {
-      console.error("lead email failed", e && e.message);
-      return json({ success: false, message: "send failed" }, 502);
+    const jobs = [];
+    if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) jobs.push(sendTelegram(env, subject, text));
+    if (env.RESEND_API_KEY && env.LEAD_EMAIL_TO) jobs.push(sendResend(env, subject, text, replyTo));
+    if (env.LEAD_WEBHOOK_URL) jobs.push(sendWebhook(env, fields));
+    if (env.LEAD_TO && env.LEAD) jobs.push(sendRouting(env, subject, text, replyTo));
+    if (!jobs.length) {
+      console.error("lead: no delivery channel configured");
+      return json({ success: false, message: "no delivery channel" }, 500);
     }
+    const results = await Promise.allSettled(jobs);
+    results.filter((r) => r.status === "rejected").forEach((r) => console.error("lead delivery failed:", r.reason && r.reason.message));
+    // one working channel is enough
+    if (!results.some((r) => r.status === "fulfilled")) return json({ success: false, message: "send failed" }, 502);
     return json({ success: true });
   },
 };
+
+async function check(res, label) {
+  if (!res.ok) throw new Error(label + " " + res.status + ": " + (await res.text()).slice(0, 300));
+}
+
+async function sendTelegram(env, subject, text) {
+  const res = await fetch("https://api.telegram.org/bot" + env.TELEGRAM_BOT_TOKEN + "/sendMessage", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text: "🧱 " + subject + "\n\n" + text }),
+  });
+  await check(res, "telegram");
+}
+
+async function sendResend(env, subject, text, replyTo) {
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: env.LEAD_EMAIL_FROM || "Website leads <onboarding@resend.dev>",
+      to: env.LEAD_EMAIL_TO.split(",").map((x) => x.trim()),
+      reply_to: replyTo || undefined,
+      subject,
+      text,
+    }),
+  });
+  await check(res, "resend");
+}
+
+async function sendWebhook(env, fields) {
+  const res = await fetch(env.LEAD_WEBHOOK_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(Object.fromEntries(fields.concat([["received", new Date().toISOString()]]))),
+  });
+  await check(res, "webhook");
+}
+
+async function sendRouting(env, subject, text, replyTo) {
+  const TO = env.LEAD_TO;
+  const headers = [
+    "From: =?UTF-8?B?" + b64("Γυψοσανίδες Λουτράκι (site)") + "?= <" + FROM + ">",
+    "To: <" + TO + ">",
+    replyTo && "Reply-To: <" + replyTo + ">",
+    "Subject: =?UTF-8?B?" + b64(subject) + "?=",
+    "Date: " + new Date().toUTCString(),
+    "Message-ID: <" + crypto.randomUUID() + "@gypsos-loutraki.com>",
+    "MIME-Version: 1.0",
+    "Content-Type: text/plain; charset=UTF-8",
+    "Content-Transfer-Encoding: base64",
+  ].filter(Boolean);
+  const raw = headers.join("\r\n") + "\r\n\r\n" + b64(text).replace(/.{76}/g, "$&\r\n");
+  await env.LEAD.send(new EmailMessage(FROM, TO, raw));
+}
 
 function b64(s) {
   let bin = "";
