@@ -43,10 +43,9 @@ def site_url():
 # ---------------- CONFIG (placeholders until the owner sends the real details) ----------------
 DOMAIN = site_url()
 TODAY = date.today().isoformat()
-VER = "1124d"
+VER = "1124e"
 PHONE, PHONE_TEL = "+30 690 683 8669", "+306906838669"     # the owner's mobile (calls, WhatsApp, Viber)
-MOBILE = PHONE
-WA = "14165705760"  # WhatsApp for now goes to +1 416 570 5760 (user, 2026-11-24); calls and Viber stay on PHONE
+MOBILE, WA = PHONE, "306906838669"
 EMAIL = "info@gypsos-loutraki.com"  # public address; forward it to the owner's inbox with Cloudflare Email Routing
 BRAND = "Gypsos Loutraki"
 NAME = {"el": "Γυψοσανίδες Λουτράκι", "en": "Gypsos Loutraki Drywall"}
@@ -211,7 +210,7 @@ def header(p):
   <a class="btn btn-sm hide-s" href="#prosfora">{quote}</a>
   <details class="dd"><summary aria-label="{menu}"><i></i><i></i><i></i></summary>
    <div class="dd-p"><div class="w dd-grid">{groups}
-    <div class="mcol mcol-c"><p>{call}</p><a href="tel:{tel}">{phone}</a><a href="https://wa.me/{wa}">WhatsApp</a><a href="mailto:{email}">{email}</a><span>{hours}</span><a class="mlang" href="{alt}" hreflang="{other}" lang="{other}">{lang_t}</a></div>
+    <div class="mcol mcol-c"><p>{call}</p><a href="tel:{tel}">{phone}</a><a href="https://wa.me/{wa}">WhatsApp · Viber</a><a href="mailto:{email}">{email}</a><span>{hours}</span><a class="mlang" href="{alt}" hreflang="{other}" lang="{other}">{lang_t}</a></div>
    </div></div>
   </details>
  </div>
@@ -265,7 +264,7 @@ def form(lang, title=None):
     perks = "".join("<li><b>%02d</b>%s</li>" % (i + 1, x) for i, x in enumerate(f["perks"]))
     return """<section class="close" id="prosfora"><div class="w close-in">
  <div class="close-t"><p class="eyebrow">{eb}</p><h2>{h}</h2><p>{p}</p><ol class="steps3">{perks}</ol>
-  <p class="close-call"><a href="tel:{tel}">{pi}{phone}</a><a href="https://wa.me/{wa}">{wai}WhatsApp</a></p>
+  <p class="close-call"><a href="tel:{tel}">{pi}{phone}</a><a href="https://wa.me/{wa}">{wai}WhatsApp · Viber</a></p>
  </div>
  {card}
 </div></section>
@@ -414,7 +413,7 @@ def page_body(p):
         if i == 1 and len(secs) > 3:
             body.append(cta_box(lang))
     side = """<aside class="aside"><div class="aside-c"><p class="aside-h">{h}</p><p>{p}</p><a class="btn" href="#prosfora">{quote}{arrow}</a>
-<a class="aside-tel" href="tel:{tel}">{pi}{phone}</a><a class="aside-tel" href="https://wa.me/{wa}">{wai}WhatsApp</a></div></aside>""".format(
+<a class="aside-tel" href="tel:{tel}">{pi}{phone}</a><a class="aside-tel" href="https://wa.me/{wa}">{wai}WhatsApp · Viber</a></div></aside>""".format(
         h=u["side_h"], p=u["side_p"], quote=u["quote"], tel=PHONE_TEL, phone=PHONE, arrow=ARROW, pi=PHONE_ICON, wa=WA, wai=WA_ICON, mobile=MOBILE)
     return top + '<div class="w doc"><article class="txt">%s</article>%s</div>' % ("".join(body), side)
 

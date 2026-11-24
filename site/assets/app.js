@@ -1,8 +1,7 @@
 // Gypsos Loutraki: menu and the quote form (POST /api/lead through the site's Worker; WhatsApp, Viber and email as fallbacks).
 (function () {
   var en = document.documentElement.lang === "en";
-  var WA = "14165705760";      // WhatsApp (temporary number)
-  var VIBER = "306906838669";  // Viber stays on the Greek mobile
+  var WA = "306906838669";
   var EMAIL = "info@gypsos-loutraki.com";
 
   // Google Ads: consent banner (Consent Mode v2) and conversion events.
@@ -75,7 +74,7 @@
     function link(via) {
       var t = encodeURIComponent(text());
       if (via === "wa") return "https://wa.me/" + WA + "?text=" + t;
-      if (via === "viber") return "viber://chat?number=%2B" + VIBER + "&draft=" + t;
+      if (via === "viber") return "viber://chat?number=%2B" + WA + "&draft=" + t;
       return "mailto:" + EMAIL + "?subject=" + encodeURIComponent(en ? "Drywall quote request" : "Αίτημα προσφοράς γυψοσανίδας") + "&body=" + t;
     }
     function say(html, err) { res.hidden = false; res.className = "lf-res" + (err ? " err" : ""); res.innerHTML = html; }
