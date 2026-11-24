@@ -1,1 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="44" height="44"><title>Gypsos Loutraki</title><rect width="48" height="48" rx="11" fill="#1e2a32"/><path d="M11 12h26v24H11z" fill="#f6f4ef"/><path d="M11 12h26v24H11z" fill="none" stroke="#1e2a32" stroke-width="0"/><path d="M24 12v24M11 24h26" stroke="#c9c3b5" stroke-width="1.6"/><path d="M15 8v32M33 8v32" stroke="#e3a21a" stroke-width="3.4" stroke-linecap="round"/><path d="M15 8h4M33 40h-4" stroke="#e3a21a" stroke-width="3.4" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="44" height="44"><title>Gypsos Loutraki</title>
+<defs><clipPath id="gl-c"><circle cx="50" cy="50" r="41"/></clipPath></defs>
+<circle cx="50" cy="50" r="41" fill="#f6f4ef"/>
+<g clip-path="url(#gl-c)">
+<path d="M14 38 62 12 86 50 38 76Z" fill="#d9d3c6" stroke="#1e2a32" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M38 25 62 63" stroke="#bdb5a5" stroke-width="1.4"/>
+<path d="M35 101c0-15 6.5-25 15.5-25S66 86 66 101z" fill="#1e2a32"/>
+<path d="M44 101V84h13v17z" fill="#e3a21a"/>
+<path d="M44.5 84 42 77.5M56.5 84l2.5-6.5" stroke="#e3a21a" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M61 80 69 63 73 51" fill="none" stroke="#1e2a32" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="73.5" cy="48.5" r="4.3" fill="#1e2a32"/>
+<path d="M40 80 31 69 30 58" fill="none" stroke="#1e2a32" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M27.5 51h5v8h-5z" fill="#1e2a32"/>
+<rect x="21" y="44.5" width="15" height="7" rx="2.2" fill="#e3a21a" stroke="#1e2a32" stroke-width="1.8"/>
+<path d="M21 48h-6.5" stroke="#1e2a32" stroke-width="2" stroke-linecap="round"/>
+<circle cx="30" cy="58" r="3.8" fill="#1e2a32"/>
+<path d="M46.5 74h8v4h-8z" fill="#1e2a32"/>
+<circle cx="50.5" cy="65" r="9" fill="#ecd7b6" stroke="#1e2a32" stroke-width="2"/>
+<path d="M41.6 63c.2-5.6 4-8.8 8.9-8.8s8.7 3.2 8.9 8.8z" fill="#1e2a32"/>
+<path d="M57 62.6h7.5" stroke="#1e2a32" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M43.5 65.4h14" stroke="#1e2a32" stroke-width="3.2" stroke-linecap="round"/>
+<path d="M47.5 70.2q3 1.8 6 0" fill="none" stroke="#1e2a32" stroke-width="1.4" stroke-linecap="round"/>
+</g>
+<path d="M14.6 66.5A39 39 0 0 1 76 20" fill="none" stroke="#1e2a32" stroke-width="3" stroke-linecap="round"/>
+<path d="M83 26A41 41 0 0 1 30 88" fill="none" stroke="#e3a21a" stroke-width="7.5" stroke-linecap="round"/>
+</svg>
